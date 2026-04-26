@@ -164,6 +164,6 @@ Odoo record rules apply).
 8. Compatibility
 =================
 
-- Tested on **Odoo 19.0 Community & Enterprise**.
+- Tested on **Odoo 17.0 Community & Enterprise**.
 - No external Python dependencies — uses only the standard library.
 - Works with LibreOffice Calc and Microsoft Excel.
