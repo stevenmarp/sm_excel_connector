@@ -3,10 +3,12 @@
     <!-- Security Groups -->
     <record id="group_excel_connector_user" model="res.groups">
         <field name="name">Excel Connector User</field>
+        <field name="category_id" ref="base.module_category_extra_tools"/>
     </record>
 
     <record id="group_excel_connector_manager" model="res.groups">
         <field name="name">Excel Connector Manager</field>
+        <field name="category_id" ref="base.module_category_extra_tools"/>
         <field name="implied_ids" eval="[(4, ref('group_excel_connector_user'))]"/>
     </record>
 

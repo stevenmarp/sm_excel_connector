@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <!-- ============ TREE VIEW ============ -->
-    <record id="excel_template_view_list" model="ir.ui.view">
-        <field name="name">excel.template.list</field>
+    <record id="excel_template_view_tree" model="ir.ui.view">
+        <field name="name">excel.template.tree</field>
         <field name="model">excel.template</field>
         <field name="arch" type="xml">
-            <list string="Excel Templates" decoration-muted="state == 'expired'" decoration-success="state == 'published'">
+            <tree string="Excel Templates" decoration-muted="state == 'expired'" decoration-success="state == 'published'">
                 <field name="name"/>
                 <field name="model_id"/>
                 <field name="responsible_id" widget="many2one_avatar"/>
@@ -15,7 +15,7 @@
                     decoration-info="state == 'draft'"
                     decoration-success="state == 'published'"
                     decoration-danger="state == 'expired'"/>
-            </list>
+            </tree>
         </field>
     </record>
 
@@ -61,12 +61,12 @@
                     <notebook>
                         <page string="Fields" name="fields">
                             <field name="field_ids">
-                                <list editable="bottom">
+                                <tree editable="bottom">
                                     <field name="sequence" widget="handle"/>
                                     <field name="model_id" column_invisible="1"/>
                                     <field name="field_id"/>
                                     <field name="label"/>
-                                </list>
+                                </tree>
                             </field>
                         </page>
                         <page string="Domain Filter" name="domain">
@@ -97,14 +97,14 @@
                                     confirm="Delete all access history records?"/>
                             </div>
                             <field name="access_history_ids" readonly="1">
-                                <list>
+                                <tree>
                                     <field name="ip_address"/>
                                     <field name="user_agent"/>
                                     <field name="create_date" string="First Access"/>
                                     <field name="last_used"/>
                                     <field name="frequency_sec" string="Freq (sec)"/>
                                     <field name="times_used"/>
-                                </list>
+                                </tree>
                             </field>
                         </page>
                     </notebook>
@@ -138,7 +138,7 @@
     <record id="excel_template_action" model="ir.actions.act_window">
         <field name="name">Excel Templates</field>
         <field name="res_model">excel.template</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">tree,form</field>
         <field name="search_view_id" ref="excel_template_view_search"/>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
