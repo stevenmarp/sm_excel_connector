@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_excel_connector_root"
+        name="Excel Connector"
+        web_icon="sm_excel_connector,static/description/icon.png"
+        sequence="90"/>
+
+    <menuitem id="menu_excel_template"
+        name="Excel Templates"
+        parent="menu_excel_connector_root"
+        action="excel_template_action"
+        sequence="10"/>
+</odoo>

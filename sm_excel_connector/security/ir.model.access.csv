@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_excel_template_user,excel.template.user,model_excel_template,group_excel_connector_user,1,1,1,0
+access_excel_template_manager,excel.template.manager,model_excel_template,group_excel_connector_manager,1,1,1,1
+access_excel_template_field_user,excel.template.field.user,model_excel_template_field,group_excel_connector_user,1,1,1,1
+access_excel_template_field_manager,excel.template.field.manager,model_excel_template_field,group_excel_connector_manager,1,1,1,1
+access_excel_access_history_user,excel.access.history.user,model_excel_access_history,group_excel_connector_user,1,0,0,0
+access_excel_access_history_manager,excel.access.history.manager,model_excel_access_history,group_excel_connector_manager,1,1,1,1

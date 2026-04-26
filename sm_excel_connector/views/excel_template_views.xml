@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ============ TREE VIEW ============ -->
+    <record id="excel_template_view_list" model="ir.ui.view">
+        <field name="name">excel.template.list</field>
+        <field name="model">excel.template</field>
+        <field name="arch" type="xml">
+            <list string="Excel Templates" decoration-muted="state == 'expired'" decoration-success="state == 'published'">
+                <field name="name"/>
+                <field name="model_id"/>
+                <field name="responsible_id" widget="many2one_avatar"/>
+                <field name="record_count" string="Records"/>
+                <field name="access_count" string="Accesses"/>
+                <field name="state" widget="badge"
+                    decoration-info="state == 'draft'"
+                    decoration-success="state == 'published'"
+                    decoration-danger="state == 'expired'"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ============ FORM VIEW ============ -->
+    <record id="excel_template_view_form" model="ir.ui.view">
+        <field name="name">excel.template.form</field>
+        <field name="model">excel.template</field>
+        <field name="arch" type="xml">
+            <form string="Excel Template">
+                <header>
+                    <button name="action_publish" string="Publish" type="object"
+                        class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_set_draft" string="Reset to Draft" type="object"
+                        invisible="state == 'draft'"/>
+                    <button name="action_expire" string="Expire" type="object"
+                        class="btn-danger" invisible="state != 'published'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,published"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_preview_data" type="object"
+                            class="oe_stat_button" icon="fa-external-link"
+                            invisible="state != 'published'">
+                            <span>Preview</span>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Template Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="model_id"/>
+                            <field name="responsible_id"/>
+                            <field name="record_count" string="Matching Records"/>
+                        </group>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="lang"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Fields" name="fields">
+                            <field name="field_ids">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="model_id" column_invisible="1"/>
+                                    <field name="field_id"/>
+                                    <field name="label"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Domain Filter" name="domain">
+                            <group>
+                                <field name="domain" widget="domain" options="{'model': 'model_name'}"/>
+                                <field name="model_name" invisible="1"/>
+                            </group>
+                        </page>
+                        <page string="Access &amp; Security" name="access">
+                            <group>
+                                <group>
+                                    <field name="access_token"/>
+                                    <field name="export_url" widget="CopyClipboardChar"/>
+                                </group>
+                                <group>
+                                    <button name="action_generate_token" string="Generate New Token"
+                                        type="object" class="btn-warning"
+                                        confirm="This will disconnect all currently connected spreadsheets. Continue?"/>
+                                    <button name="action_download_odc" string="Download ODC File"
+                                        type="object" class="btn-secondary"
+                                        invisible="state != 'published'"/>
+                                </group>
+                            </group>
+                            <separator string="Access History"/>
+                            <div>
+                                <button name="action_flush_history" string="Flush History"
+                                    type="object" class="btn-link"
+                                    confirm="Delete all access history records?"/>
+                            </div>
+                            <field name="access_history_ids" readonly="1">
+                                <list>
+                                    <field name="ip_address"/>
+                                    <field name="user_agent"/>
+                                    <field name="create_date" string="First Access"/>
+                                    <field name="last_used"/>
+                                    <field name="frequency_sec" string="Freq (sec)"/>
+                                    <field name="times_used"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ============ SEARCH VIEW ============ -->
+    <record id="excel_template_view_search" model="ir.ui.view">
+        <field name="name">excel.template.search</field>
+        <field name="model">excel.template</field>
+        <field name="arch" type="xml">
+            <search string="Excel Templates">
+                <field name="name"/>
+                <field name="model_id"/>
+                <field name="responsible_id"/>
+                <filter name="filter_published" string="Published" domain="[('state', '=', 'published')]"/>
+                <filter name="filter_draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+                <separator/>
+                <filter name="filter_mine" string="My Templates" domain="[('responsible_id', '=', uid)]"/>
+                <separator/>
+                <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
+                <filter name="group_model" string="Model" context="{'group_by': 'model_id'}"/>
+                <filter name="group_responsible" string="Responsible" context="{'group_by': 'responsible_id'}"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- ============ ACTION ============ -->
+    <record id="excel_template_action" model="ir.actions.act_window">
+        <field name="name">Excel Templates</field>
+        <field name="res_model">excel.template</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="excel_template_view_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first Excel export template
+            </p>
+            <p>
+                Define which model and fields to export, apply domain filters,
+                then publish to generate a secure URL for Excel or LibreOffice.
+            </p>
+        </field>
+    </record>
+</odoo>
