@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Excel Connector — Export Odoo Data to Excel & LibreOffice',
-    'version': '18.1.0.0',
+    'version': '17.0.1.0.0',
     'summary': 'Sync Odoo data to Microsoft Excel & LibreOffice Calc via secure URL '
                'or ODC file. Create export templates, filter data, track access history.',
     'description': """
