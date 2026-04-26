@@ -5,7 +5,7 @@
     'summary': 'Sync Odoo data to Microsoft Excel & LibreOffice Calc via secure URL '
                'or ODC file. Create export templates, filter data, track access history.',
     'description': """
-Excel Connector for Odoo 19
+Excel Connector for Odoo 16
 ============================
 
 Effortlessly sync Odoo data with Microsoft Excel & LibreOffice Calc!
